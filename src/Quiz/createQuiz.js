@@ -3,32 +3,43 @@ import {TextInput} from 'react-native-web';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
 const CreateQuiz = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [questionTextValue, setQuestionTextValue] = useState('');
+  const [numberOfAnswers, setNumberOfAnswers] = useState(0);
   const [questions, setQuestions] = useState([]);
-  const updateOther = text => {
-    setInputValue(text);
+  const updateQuestionTextValue = text => {
+    setQuestionTextValue(text);
+  };
+  const updateNumberOfAnswersValue = text => {
+    setNumberOfAnswers(text);
   };
   const showMeTheText = () => {
-    questions.push(inputValue);
-    setQuestions(questions);
-    setInputValue('');
+    setQuestions([...questions, questionTextValue]);
+    setQuestionTextValue('');
   };
-  console.log(questions);
+  //   console.log(...questions);
   return (
     <View>
       <Text>Let's Create A Quiz!</Text>
       <View style={styles.inputContainer}>
-        <Text>Enter Something: </Text>
+        <Text style={styles.inputText}>Enter Queston: </Text>
         <TextInput
-          value={inputValue}
+          value={questionTextValue}
           style={styles.customTextInput}
-          onChangeText={updateOther}
+          onChangeText={updateQuestionTextValue}
         />
-        <Button title="SaveText!" onPress={showMeTheText} />
       </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputText}>Enter Number Of Answers: </Text>
+        <TextInput
+          value={numberOfAnswers}
+          style={styles.customTextInput}
+          onChangeText={updateNumberOfAnswersValue}
+        />
+      </View>
+      <Button title="SaveText!" onPress={showMeTheText} />
 
       {questions.map(a => {
-        return <Text>{a}</Text>;
+        return <Text>{JSON.stringify(a)}</Text>;
       })}
     </View>
   );
@@ -40,10 +51,15 @@ const styles = StyleSheet.create({
   customTextInput: {
     borderColor: 'pink',
     borderWidth: 5,
+    flex: 2,
   },
   inputContainer: {
     flex: 1,
+    width: 600,
     flexDirection: 'row',
     textAlignVertical: 'center',
+  },
+  inputText: {
+    flex: 1,
   },
 });
