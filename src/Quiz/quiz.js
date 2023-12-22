@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Text, View} from 'react-native';
-import Question from './question';
-import quest from './qui.json';
+import Question from './Question';
+import quest from './mockQuestions.json';
 
 const Quiz = () => {
   const [questions, setQuestion] = useState(quest);
