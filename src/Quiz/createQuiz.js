@@ -3,14 +3,15 @@ import {TextInput} from 'react-native-web';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
 const CreateQuiz = () => {
+  const [inputValue, setInputValue] = useState('');
   const [questions, setQuestions] = useState([]);
-  const [someText, setSomeText] = useState('');
   const updateOther = text => {
-    setSomeText(text);
+    setInputValue(text);
   };
   const showMeTheText = () => {
-    questions.push(someText);
+    questions.push(inputValue);
     setQuestions(questions);
+    setInputValue('');
   };
   console.log(questions);
   return (
@@ -18,7 +19,11 @@ const CreateQuiz = () => {
       <Text>Let's Create A Quiz!</Text>
       <View style={styles.inputContainer}>
         <Text>Enter Something: </Text>
-        <TextInput style={styles.customTextInput} onChangeText={updateOther} />
+        <TextInput
+          value={inputValue}
+          style={styles.customTextInput}
+          onChangeText={updateOther}
+        />
         <Button title="SaveText!" onPress={showMeTheText} />
       </View>
 
