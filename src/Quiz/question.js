@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View} from 'react-native';
-import Answers from './answer.js';
+import Answers from './Answer.js';
 
 const Question = ({q, setRaspuns}) => {
   return q.map((a, i) => {
