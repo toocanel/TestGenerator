@@ -1,0 +1,38 @@
+[
+    {
+        "question":"De ce are vaca coada1?",
+        "answers":[
+            "de ce nu",
+            "de aia",
+            "ca poate"
+        ],
+        "corect":1
+    },
+    {
+        "question":"De ce are vaca coada2?",
+        "answers":[
+            "de ce nu",
+            "de aia",
+            "ca poate"
+        ],
+        "corect":2
+    },
+    {
+        "question":"De ce are vaca coda3?",
+        "answers":[
+            "de ce nu",
+            "de aia",
+            "ca poate"
+        ],
+        "corect":3
+    },
+    {
+        "question":"De ce are vaca coda4?",
+        "answers":[
+            "de ce nu",
+            "de aia",
+            "ca poate"
+        ],
+        "corect":1
+    }
+]
