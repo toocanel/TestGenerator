@@ -4,7 +4,7 @@ import Question from './Question';
 import quest from './mockQuestions.json';
 
 const Quiz = () => {
-  const [questions, setQuestion] = useState(quest);
+  const [questions, setQuestiony] = useState(quest);
 
   const [raspunsuriCorecte, setRaspunsuriCorecte] = useState(0);
 
