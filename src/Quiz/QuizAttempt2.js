@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {TextInput} from 'react-native-web';
 import {
-  CheckBox,
   Button,
+  CheckBox,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -67,17 +68,28 @@ const Question = () => {
             style={styles.customTextInput}
             onChangeText={setQuestionText}
           />
-          <Button
+          <Pressable
             color="#3AB4E9"
-            title="+ Answer"
             onPress={() => addNumberOfAnswers(1)}
-          />
-          <Button
+            style={({pressed, hovered, focused}) => [
+              {
+                backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
+              },
+              styles.wrapperCustom,
+            ]}>
+            <Text>+ Answer</Text>
+          </Pressable>
+          <Pressable
             color="#3AB4E9"
-            title="- Answer"
-            padding="30px"
             onPress={() => addNumberOfAnswers(-1)}
-          />
+            style={({pressed, hovered, focused}) => [
+              {
+                backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
+              },
+              styles.wrapperCustom,
+            ]}>
+            <Text>- Answer</Text>
+          </Pressable>
         </View>
         <View>
           <Text>Number of answers: {numberOfAnswers}</Text>
@@ -112,16 +124,28 @@ const QuestionsList = () => {
 
   return (
     <View>
-      <Button
+      <Pressable
         color="#3AB4E9"
-        title="Save Current State"
         onPress={() => saveCurrentState}
-      />
-      <Button
+        style={({pressed, hovered, focused}) => [
+          {
+            backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
+          },
+          styles.wrapperCustom,
+        ]}>
+        <Text>Save Current State</Text>
+      </Pressable>
+      <Pressable
         color="#3AB4E9"
-        title="Add Question"
         onPress={() => addAnotherQuestion(1)}
-      />
+        style={({pressed, hovered, focused}) => [
+          {
+            backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
+          },
+          styles.wrapperCustom,
+        ]}>
+        <Text>Add Question</Text>
+      </Pressable>
       <ScrollView>
         <Questions count={numberOfQuestions} />
       </ScrollView>
@@ -142,6 +166,10 @@ const QuiztAttempt2 = () => {
 export default QuiztAttempt2;
 
 const styles = StyleSheet.create({
+  wrapperCustom: {
+    borderRadius: 8,
+    padding: 6,
+  },
   mainPage: {
     flex: 1,
   },
