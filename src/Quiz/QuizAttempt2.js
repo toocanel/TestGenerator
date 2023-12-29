@@ -126,7 +126,7 @@ const QuestionsList = () => {
     <View>
       <Pressable
         color="#3AB4E9"
-        onPress={() => saveCurrentState}
+        onPress={() => saveCurrentState()}
         style={({pressed, hovered, focused}) => [
           {
             backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
