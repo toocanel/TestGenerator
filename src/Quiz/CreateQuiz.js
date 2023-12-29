@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 600,
     flexDirection: 'row',
-    textAlignVertical: 'center',
+    verticalAlign: 'center',
   },
   inputText: {
     flex: 1,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   answerRow: {
     flexDirection: 'row',
-    textAlignVertical: 'center',
+    verticalAlign: 'center',
   },
   answersInputText: {
     flex: 1,
