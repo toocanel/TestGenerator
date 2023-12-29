@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TextInput} from 'react-native-web';
 import {
   Button,
@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useLocalStorage} from '../helpers/useLocalStorage';
 
 const Answer = ({index}) => {
   const [answerText, setAnswerText] = useState('');
@@ -105,9 +106,30 @@ const Question = () => {
 const QuestionsList = () => {
   const [questionList, setQuestionList] = useState([]);
   const [numberOfQuestions, setnumberOfQuestions] = useState(0);
+  const [localStorage, saveToLocalStorage] = useLocalStorage('UniQueKey', '');
+
+  useEffect(() => {
+    console.log('local storage loaded/updated:', localStorage);
+  }, [localStorage]);
 
   const saveCurrentState = () => {
-    //To do this thingy
+    // data from the current quiz
+    const quiz = {
+      quizID: 1,
+      quizName: 'Nume quiz',
+      questions: [
+        {
+          question: 'De ce are vaca coada1?',
+          answers: ['de ce nu', 'de aia', 'ca poate'],
+          corect: 1,
+        },
+      ],
+      otherData: 'blabla',
+    };
+    // Combine existing data with new data
+    const localStorageUpdate = [...localStorage, quiz];
+    //Save your to localStorage
+    saveToLocalStorage(localStorageUpdate);
   };
 
   const Questions = ({count}) => {
@@ -149,7 +171,9 @@ const QuestionsList = () => {
       <ScrollView>
         <Questions count={numberOfQuestions} />
       </ScrollView>
-      {[...questionList]}
+      {/* {[...questionList]} */}
+      {/* Local storage data */}
+      <Text>{JSON.stringify(localStorage)}</Text>
     </View>
   );
 };
