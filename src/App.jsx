@@ -3,6 +3,7 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import Quiz from './Quiz/Quiz';
 import CreateQuiz from './Quiz/CreateQuiz';
 import QuiztAttempt2 from './Quiz/QuizAttempt2';
+import QuiztAttempt3 from './Quiz/QuizAttempt3';
 
 export default function App() {
   return (
@@ -10,7 +11,8 @@ export default function App() {
       <Text style={styles.text}>Hello, World!</Text>
       {/* <Quiz /> */}
       {/* <CreateQuiz /> */}
-      <QuiztAttempt2 />
+      {/* <QuiztAttempt2 /> */}
+      <QuiztAttempt3 />
     </View>
   );
 }
