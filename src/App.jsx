@@ -4,6 +4,7 @@ import Quiz from './Quiz/Quiz';
 import CreateQuiz from './Quiz/CreateQuiz';
 import QuiztAttempt2 from './Quiz/QuizAttempt2';
 import QuiztAttempt3 from './Quiz/QuizAttempt3';
+import AndAgain from './Quiz/AndAgain';
 
 export default function App() {
   return (
@@ -12,7 +13,8 @@ export default function App() {
       {/* <Quiz /> */}
       {/* <CreateQuiz /> */}
       {/* <QuiztAttempt2 /> */}
-      <QuiztAttempt3 />
+      {/* <QuiztAttempt3 /> */}
+      <AndAgain />
     </View>
   );
 }
