@@ -12,18 +12,18 @@ import {
 const Answer = props => {
   //these are the answers of the question
 
-  const [answer, setAnswer] = useState(props); //this is the object containing the answers object
+  const [answer, setAnswer] = useState(props.answer); //this is the object containing the answers object
 
   const UpdateIsCorrect = () => {
     let tmp = answer;
-    tmp.answer.isCorrect = !tmp.isCorrect;
-    setAnswer(tmp);
+    tmp.isCorrect = !tmp.isCorrect;
+    props.updateAnswer(props.index, tmp);
   };
 
   const UpdateAnswerText = text => {
     let tmp = answer;
-    tmp.answer.text = text;
-    setAnswer(tmp);
+    tmp.text = text;
+    props.updateAnswer(props.index, tmp);
   };
 
   return (
@@ -42,44 +42,49 @@ const Answer = props => {
 
 const Question = props => {
   //this contains the information about the question and the list of answers
+  const [question, setQuestion] = useState(props.question); //this is the question object
 
-  const [question, setQuestion] = useState(props); //this is the question object
-
-  const AddAnswers = () => {
-    let tmp = question;
-    let emptyAnswer = {text: '', isCorrect: false};
-    tmp.question.answers.push(emptyAnswer);
-    setQuestion(tmp);
+  const updateText = e => {
+    props.updateQuestionText(props.index, e);
   };
 
-  const RemoveAnswer = () => {
-    let tmp = question;
-    tmp.question.answers.pop();
-    setQuestion(tmp);
+  const updateAnswer = (answerIndex, answerValue) => {
+    let tmp = question.answers;
+    tmp[answerIndex] = answerValue;
+    props.updateQuestionAnswers(props.index, tmp);
   };
-
-  const UpdateQuestionText = text => {
-    let tmp = question;
-    tmp.question.text = text;
-    setQuestion(tmp);
+  const UpdateAnswers = e => {
+    if (e > 0) {
+      let emptyAnswer = {text: '', isCorrect: false};
+      let tmp = [...question.answers, emptyAnswer];
+      props.updateQuestionAnswers(props.index, tmp);
+    } else {
+      let tmp = question.answers;
+      tmp.pop();
+      props.updateQuestionAnswers(props.index, tmp);
+    }
   };
 
   return (
     <View>
       <Text>Question: </Text>
-      <TextInput
-        value={question.text}
-        onChangeText={text => UpdateQuestionText(text)}
-      />
+      <TextInput value={question.text} onChangeText={updateText} />
       <View>
-        {question.question.answers.map((value, index) => {
+        {question.answers.map((value, index) => {
           console.log(value);
-          return <Answer key={index} answer={value} />;
+          return (
+            <Answer
+              key={index}
+              index={index}
+              answer={value}
+              updateAnswer={updateAnswer}
+            />
+          );
         })}
       </View>
       <Pressable
         color="#3AB4E9"
-        onPress={() => AddAnswers()}
+        onPress={() => UpdateAnswers(1)}
         style={({pressed, hovered, focused}) => [
           {
             backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
@@ -90,7 +95,7 @@ const Question = props => {
       </Pressable>
       <Pressable
         color="#3AB4E9"
-        onPress={() => RemoveAnswer()}
+        onPress={() => UpdateAnswers(-1)}
         style={({pressed, hovered, focused}) => [
           {
             backgroundColor: hovered ? '#00d5ff' : '#3AB4E9',
@@ -105,19 +110,33 @@ const Question = props => {
 
 const Quiz = () => {
   //this contains the list of question objects
-  const [questions, setQuestions] = useState(null);
+  const [quiz, setQuiz] = useState({
+    name: 'QuizName',
+    questions: [],
+  });
 
   const AddQuestion = () => {
     let emptyQuestion = {text: '', answers: []};
-    if (questions) {
-      setQuestions([...questions, emptyQuestion]);
-    } else {
-      setQuestions([emptyQuestion]);
-    }
+    setQuiz({
+      ...quiz,
+      questions: [...quiz.questions, emptyQuestion],
+    });
+  };
+
+  const updateQuestionText = (index, questionText) => {
+    let tmp = quiz.questions;
+    tmp[index].text = questionText;
+    setQuiz({...quiz, questions: tmp});
+  };
+
+  const updateQuestionAnswers = (index, answers) => {
+    let tmp = quiz.questions;
+    tmp[index].answers = answers;
+    setQuiz({...quiz, questions: tmp});
   };
 
   const WriteToLog = () => {
-    console.log(questions);
+    console.log(quiz);
   };
 
   return (
@@ -144,9 +163,17 @@ const Quiz = () => {
         ]}>
         <Text>Add Question</Text>
       </Pressable>
-      {questions && questions.length ? (
-        questions.map((value, index) => {
-          return <Question key={index} question={value} />;
+      {quiz.questions.length !== 0 ? (
+        quiz.questions.map((value, index) => {
+          return (
+            <Question
+              key={index}
+              index={index}
+              question={value}
+              updateQuestionText={updateQuestionText}
+              updateQuestionAnswers={updateQuestionAnswers}
+            />
+          );
         })
       ) : (
         <View>
